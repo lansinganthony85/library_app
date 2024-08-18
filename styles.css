@@ -1,0 +1,59 @@
+body {
+    max-width: max-content;
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+#add-book {
+    background-color: rgb(130, 194, 34);
+    color: rgb(86, 86, 243);
+    font-weight: bold;
+    font-size: medium;
+    border-radius: 10px;
+    border: none;
+    padding: 5px 10px;
+    margin: 20px auto;
+}
+
+#add-book:active {
+    background-color: green;
+}
+
+.book {
+    width: 100px;
+    height: 150px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.title {
+    font-style: bold;
+    font-size: 1.5rem;
+}
+
+.author {
+    font-size: 1.2rem;
+}
+
+.author, .pages {
+    font-style: italic;
+}
+
+.pages {
+    font-size: .8rem;
+}
+
+.genre {
+    font-size: .5rem;
+}
+
+.title, .author, .pages {
+    margin: auto;
+}
