@@ -57,3 +57,26 @@ body {
 .title, .author, .pages {
     margin: auto;
 }
+
+.status-button {
+    background-color: antiquewhite;
+    justify-self: end;
+}
+
+.delete-button {
+    background-color: azure;
+    justify-self: start;
+}
+
+.status-button, .delete-button {
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+}
+
+.book > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}

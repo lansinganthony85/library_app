@@ -1,4 +1,4 @@
-const myLibrary = [];
+let myLibrary = [];
 
 const container = document.getElementById("container");
 
@@ -43,8 +43,17 @@ Book.prototype.getStatus = function() {
     return this.wasRead;
 }
 
-function addBookToLibrary() {
+Book.prototype.changeStatus = function() {
+    if(this.wasRead) {
+        this.wasRead = false;
+    }
+    else {
+        this.wasRead = true;
+    }
+}
 
+function addBookToLibrary(title, author, pages, genre, status) {
+    myLibrary.push(new Book(title, author, pages, genre, status));
 }
 
 function displayLibrary() {
@@ -65,6 +74,33 @@ function displayLibrary() {
         else {
             temp.setAttribute("style", "background-color: coral");
         }
+
+        let tempDiv = document.createElement("div");
+        let deleteBtn = document.createElement("button");
+        deleteBtn.setAttribute("class", "delete-button");
+        deleteBtn.appendChild(document.createTextNode("DEL"));
+        deleteBtn.addEventListener("click", () => {
+            delete myLibrary[book];
+            myLibrary = myLibrary.filter(item => item !== undefined);
+            displayLibrary();
+        });
+        tempDiv.appendChild(deleteBtn);
+
+        let statusBtn = document.createElement("button");
+        statusBtn.setAttribute("class", "status-button");
+        statusBtn.appendChild(document.createTextNode((myLibrary[book].getStatus()) ? "Unread" : "Read"));
+        statusBtn.addEventListener("click", () => {
+            if(myLibrary[book].getStatus()) {
+                temp.setAttribute("style", "background-color: coral");
+            }
+            else {
+                temp.setAttribute("style", "background-color: lightblue");
+            }
+            myLibrary[book].changeStatus();
+        });
+        tempDiv.appendChild(statusBtn);
+
+        temp.appendChild(tempDiv);
 
         container.appendChild(temp);
     }
@@ -90,20 +126,17 @@ confirmBtn.addEventListener("click", (e) => {
     e.preventDefault();
     let isValid = true;
 
-    if(inputTitle.value ==+ "" || inputAuthor.value === "" || inputGenre.value === "")
+    if(inputTitle.value === "" || inputAuthor.value === "" || inputGenre.value === "")
         isValid = false;
 
     if(inputPages.value === "" || isNaN(inputPages.value))
         isValid = false;
 
     if(isValid) {
-        let title = inputTitle.value;
-        let author = inputAuthor.value;
-        let pages = inputPages.value;
-        let genre = inputGenre.value;
-        let status = (inputStatus[0].checked) ? true : false;
-        myLibrary.push(new Book(title, author, pages, genre, status));
+        addBookToLibrary(inputTitle.value, inputAuthor.value, inputPages.value, inputGenre.value, (inputStatus[0].checked) ? true : false);
 
         displayLibrary();
     }
+
+    add_form.close();
 });
