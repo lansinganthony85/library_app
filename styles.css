@@ -28,30 +28,30 @@ body {
 }
 
 .book {
-    width: 100px;
-    height: 150px;
+    width: 200px;
+    height: 300px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    border: 5px solid black;
 }
 
 .title {
-    font-style: bold;
-    font-size: 1.5rem;
-}
-
-.author {
-    font-size: 1.2rem;
+    font-weight: bold;
+    font-size: 1.8rem;
+    text-align: center;
 }
 
 .author, .pages {
+    font-size: 1.2rem;
+    text-align: center;
     font-style: italic;
 }
 
-.pages {
-    font-size: .8rem;
-}
-
 .genre {
-    font-size: .5rem;
+    font-size: .8rem;
 }
 
 .title, .author, .pages {

@@ -9,6 +9,34 @@
 </head>
 <body>
     <button id="add-book">+ BOOK</button>
+    <dialog id="add-book-form">
+        <form id="main-form">
+            <div>
+                <label for="input-title">Book Title
+                    <input type="text" id="input-title" name="title" required>
+                </label>
+                <label for="input-author">Author
+                    <input type="text" id="input-author" name="author" required>
+                </label>
+                <label for="input-pages">Number of Pages
+                    <input type="number" name="pages" id="input-pages" required>
+                </label>
+                <label for="input-genre">Genre
+                    <input type="text" id="input-genre" name="genre" required>
+                </label>
+                <label for="read">Already Read
+                    <input type="radio" name="status" id="read" value="true" required>
+                </label>
+                <label for="unread">Still Reading
+                    <input type="radio" name="status" id="unread" value="false" required checked>
+                </label>
+            </div>
+            <div id="buttons">
+                <button id="cancelBtn" value="cancel" formmethod="dialog">Cancel</button>
+                <button id=confirmBtn value="default">Confirm</button>
+            </div>
+        </form>
+    </dialog>
     <div id="container"></div>
 </body>
 </html>

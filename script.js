@@ -1,6 +1,18 @@
 const myLibrary = [];
 
-const container = document.getElementById("conainter");
+const container = document.getElementById("container");
+
+const showButton = document.getElementById("add-book");
+const add_form = document.getElementById("add-book-form");
+const confirmBtn = document.querySelector("#confirmBtn");
+const cancelBtn = document.querySelector("#cancelBtn");
+const mainForm = document.querySelector("#main-form");
+
+const inputTitle = document.querySelector("#input-title");
+const inputAuthor = document.querySelector("#input-author");
+const inputPages = document.querySelector("#input-pages");
+const inputGenre = document.querySelector("#input-genre");
+const inputStatus = document.getElementsByName("status");
 
 function Book(title, author, pages, genre, wasRead) {
     // the constructor
@@ -35,31 +47,63 @@ function addBookToLibrary() {
 
 }
 
-myLibrary.push(new Book("The Lord of the Rings", "J.R.R. Tolkien", 1000, "Fantasy", true));
-myLibrary.push(new Book("The Name of the Wind", "Patrick Rothfuss", 1000, "Fantasy", true));
-myLibrary.push(new Book("A Wise Man's Fear", "Patrick Rothfuss", 1000, "Fantasy", false));
-
 function displayLibrary() {
+
+    container.innerHTML = "";
+
     for (let book in myLibrary) {
         let temp = document.createElement("div");
         temp.setAttribute("class", "book");
-        let p = document.createElement("p").setAttribute("class", "title");
-        let text = document.createTextNode(myLibrary[book].getTitle());
-        p.appendChild(text);
-        temp.appendChild(p);
-        temp.appendChild(document.createElement("p").setAttribute("class", "author").appendChild(document.createTextNode(myLibrary[book].getAuthor())));
-        temp.appendChild(document.createElement("p").setAttribute("class", "pages").appendChild(document.createTextNode(myLibrary[book].getPages())));
-        temp.appendChild(document.createElement("p").setAttribute("class", "genre").appendChild(document.createTextNode(myLibrary[book].getGenre())));
+        temp.appendChild(makeParagraph("title", myLibrary[book].getTitle()));
+        temp.appendChild(makeParagraph("author", myLibrary[book].getAuthor()));
+        temp.appendChild(makeParagraph("pages", `${myLibrary[book].getPages()} pages`));
+        temp.appendChild(makeParagraph("genre", myLibrary[book].getGenre()));
 
-        if(book.getStatus()) {
-            temp.setAttribute("style", "background-color: blue");
+        if(myLibrary[book].getStatus()) {
+            temp.setAttribute("style", "background-color: lightblue");
         }
         else {
-            temp.setAttribute("style", "background-color: red");
+            temp.setAttribute("style", "background-color: coral");
         }
 
         container.appendChild(temp);
     }
 }
 
-displayLibrary();
+function makeParagraph(identifier, text) {
+    let p = document.createElement("p");
+    p.setAttribute("class", identifier);
+    p.appendChild(document.createTextNode(text));
+    return p;
+}
+
+showButton.addEventListener("click", () => {
+    add_form.showModal();
+});
+
+cancelBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    add_form.close();
+});
+
+confirmBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    let isValid = true;
+
+    if(inputTitle.value ==+ "" || inputAuthor.value === "" || inputGenre.value === "")
+        isValid = false;
+
+    if(inputPages.value === "" || isNaN(inputPages.value))
+        isValid = false;
+
+    if(isValid) {
+        let title = inputTitle.value;
+        let author = inputAuthor.value;
+        let pages = inputPages.value;
+        let genre = inputGenre.value;
+        let status = (inputStatus[0].checked) ? true : false;
+        myLibrary.push(new Book(title, author, pages, genre, status));
+
+        displayLibrary();
+    }
+});
